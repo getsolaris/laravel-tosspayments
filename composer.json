@@ -1,0 +1,55 @@
+{
+  "name": "getsolaris/laravel-tosspayments",
+  "description": "A Laravel package to Toss Payments",
+  "keywords": [
+    "getsolaris",
+    "laravel",
+    "toss",
+    "tosspayments"
+  ],
+  "homepage": "https://github.com/getsolaris/laravel-toss-payments",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "getsolaris",
+      "email": "im@getsolaris.kr"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/getsolaris/laravel-toss-payments/issues",
+    "source": "https://github.com/getsolaris/laravel-toss-payments"
+  },
+  "require": {
+    "php": "^8.0",
+    "ext-json": "*",
+    "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Getsolaris\\LaravelTossPayments\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Getsolaris\\LaravelTossPayments\\Tests\\": "tests"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Getsolaris\\LaravelTossPayments\\TossPaymentsServiceProvider"
+      ],
+      "aliases": {
+        "AwsSecretsManager": "Getsolaris\\LaravelTossPayments\\TossPayments"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
