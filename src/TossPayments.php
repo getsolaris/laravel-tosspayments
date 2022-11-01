@@ -8,42 +8,42 @@ use Illuminate\Support\Str;
 class TossPayments
 {
     /**
-     * @var string $attribute
+     * @var string
      */
     protected $attribute;
 
     /**
-     * @var $client
+     * @var
      */
     protected $client;
 
     /**
-     * @var string $url
+     * @var string
      */
     protected string $endpoint;
 
     /**
-     * @var string $version
+     * @var string
      */
     protected string $version;
 
     /**
-     * @var string $url
+     * @var string
      */
     protected string $url;
 
     /**
-     * @var string $clientKey
+     * @var string
      */
     protected string $clientKey;
 
     /**
-     * @var string $secretKey
+     * @var string
      */
     protected string $secretKey;
 
     /**
-     * @var array $headers
+     * @var array
      */
     protected array $headers = [];
 
@@ -93,7 +93,7 @@ class TossPayments
     {
         $this->endpoint = config('toss-payments.endpoint');
         $this->version = config('toss-payments.version');
-        $this->url = $this->endpoint . '/' . $this->version;
+        $this->url = $this->endpoint.'/'.$this->version;
 
         return $this;
     }
@@ -115,7 +115,7 @@ class TossPayments
     protected function initializeHeaders(): static
     {
         $this->headers = [
-            'Authorization' => 'Basic ' . base64_encode($this->secretKey . ':'),
+            'Authorization' => 'Basic '.base64_encode($this->secretKey.':'),
             'Content-Type' => 'application/json',
         ];
 

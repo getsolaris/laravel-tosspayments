@@ -10,22 +10,22 @@ use Illuminate\Http\Client\Response;
 class Payment extends TossPayments implements AttributeInterface
 {
     /**
-     * @var string $uri
+     * @var string
      */
     protected string $uri;
 
     /**
-     * @var string $paymentKey
+     * @var string
      */
     protected string $paymentKey;
 
     /**
-     * @var string $orderId
+     * @var string
      */
     protected string $orderId;
 
     /**
-     * @var int $amount
+     * @var int
      */
     protected int $amount;
 
@@ -51,7 +51,7 @@ class Payment extends TossPayments implements AttributeInterface
      */
     public function createEndpoint(?string $endpoint): string
     {
-        return $this->url . $this->uri . $this->start($endpoint);
+        return $this->url.$this->uri.$this->start($endpoint);
     }
 
     /**
@@ -104,7 +104,7 @@ class Payment extends TossPayments implements AttributeInterface
      */
     public function get(): PromiseInterface|Response
     {
-        return $this->client->get($this->createEndpoint('/' . $this->paymentKey));
+        return $this->client->get($this->createEndpoint('/'.$this->paymentKey));
     }
 
     /**
@@ -112,6 +112,6 @@ class Payment extends TossPayments implements AttributeInterface
      */
     public function order(): PromiseInterface|Response
     {
-        return $this->client->get($this->createEndpoint('/orders/' . $this->orderId));
+        return $this->client->get($this->createEndpoint('/orders/'.$this->orderId));
     }
 }

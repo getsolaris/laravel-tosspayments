@@ -9,22 +9,22 @@ use Getsolaris\LaravelTossPayments\TossPayments;
 class Transaction extends TossPayments implements AttributeInterface
 {
     /**
-     * @var string $uri
+     * @var string
      */
     protected string $uri;
 
     /**
-     * @var string $startDate
+     * @var string
      */
     protected string $startDate;
 
     /**
-     * @var string $endDate
+     * @var string
      */
     protected string $endDate;
 
     /**
-     * @var string $startingAfter
+     * @var string
      */
     protected string $startingAfter;
 
@@ -55,7 +55,7 @@ class Transaction extends TossPayments implements AttributeInterface
      */
     public function createEndpoint(?string $endpoint): string
     {
-        return $this->url . $this->uri . $this->start($endpoint);
+        return $this->url.$this->uri.$this->start($endpoint);
     }
 
     /**
@@ -93,6 +93,7 @@ class Transaction extends TossPayments implements AttributeInterface
 
     /**
      * @return $this
+     *
      * @throws LargeLimitException
      */
     public function limit(int $limit): static
