@@ -104,7 +104,7 @@ class Payment extends TossPayments implements AttributeInterface
      */
     public function get(): PromiseInterface|Response
     {
-        return $this->client->get($this->createEndpoint('/'. ($this->paymentKey ?? 'orders/' . $this->orderId)));
+        return $this->client->get($this->createEndpoint('/'.($this->paymentKey ?? 'orders/'.$this->orderId)));
     }
 
     /**
