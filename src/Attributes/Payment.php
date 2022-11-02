@@ -15,14 +15,14 @@ class Payment extends TossPayments implements AttributeInterface
     protected string $uri;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected string $paymentKey;
+    protected ?string $paymentKey = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected string $orderId;
+    protected ?string $orderId = null;
 
     /**
      * @var int
@@ -104,14 +104,17 @@ class Payment extends TossPayments implements AttributeInterface
      */
     public function get(): PromiseInterface|Response
     {
-        return $this->client->get($this->createEndpoint('/'.$this->paymentKey));
+        return $this->client->get($this->createEndpoint('/'. ($this->paymentKey ?? 'orders/' . $this->orderId)));
     }
 
     /**
+     * @param  string  $reason
      * @return PromiseInterface|Response
      */
-    public function order(): PromiseInterface|Response
+    public function cancel(string $reason): PromiseInterface|Response
     {
-        return $this->client->get($this->createEndpoint('/orders/'.$this->orderId));
+        return $this->client->post($this->createEndpoint('/'.$this->paymentKey.'/cancel'), [
+            'cancelReason' => $reason,
+        ]);
     }
 }

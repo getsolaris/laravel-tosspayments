@@ -62,7 +62,50 @@ $payment = TossPayments::for(Payment::class)
 return $payment->json();
 ```
 
+### [paymentKey로 결제 조회](https://docs.tosspayments.com/reference#paymentkey%EB%A1%9C-%EA%B2%B0%EC%A0%9C-%EC%A1%B0%ED%9A%8C)
 
+GET /v1/payments/{paymentKey}
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Payment;
+
+$payment = TossPayments::for(Payment::class)
+    ->paymentKey($paymentKey)
+    ->get();
+
+return $payment->json();
+```
+
+### [orderId로 결제 조회](https://docs.tosspayments.com/reference#orderid%EB%A1%9C-%EA%B2%B0%EC%A0%9C-%EC%A1%B0%ED%9A%8C)
+
+GET /v1/payments/orders/{orderId}
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Payment;
+
+$payment = TossPayments::for(Payment::class)
+    ->orderId($orderId)
+    ->get();
+
+return $payment->json();
+```
+
+### [결제 취소](https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C-%EC%B7%A8%EC%86%8C)
+
+POST /v1/payments/{paymentKey}/cancel
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Payment;
+
+$payment = TossPayments::for(Payment::class)
+    ->paymentId($paymentId)
+    ->cancel(reason: $reason);
+
+return $payment->json();
+```
 
 ## [거래 (Transaction)](https://docs.tosspayments.com/reference#%EA%B1%B0%EB%9E%98)
 
