@@ -101,7 +101,7 @@ use Getsolaris\LaravelTossPayments\TossPayments;
 use Getsolaris\LaravelTossPayments\Attributes\Payment;
 
 $payment = TossPayments::for(Payment::class)
-    ->paymentId($paymentId)
+    ->paymentKey($paymentKey)
     ->cancel(
         cancelReason: '고객 변심',
         refundReceiveAccount: new RefundReceiveAccount(
