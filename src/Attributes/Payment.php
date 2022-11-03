@@ -122,8 +122,7 @@ class Payment extends TossPayments implements AttributeInterface
         ?RefundReceiveAccount $refundReceiveAccount = null,
         ?int $taxFreeAmount = null,
         ?int $refundableAmount = null
-    ): PromiseInterface|Response
-    {
+    ): PromiseInterface|Response {
         $parameters = [
             'cancelReason' => $cancelReason,
         ];
