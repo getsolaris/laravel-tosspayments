@@ -3,6 +3,7 @@
 namespace Getsolaris\LaravelTossPayments\Attributes;
 
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
+use Getsolaris\LaravelTossPayments\Objects\RefundReceiveAccount;
 use Getsolaris\LaravelTossPayments\TossPayments;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
@@ -108,13 +109,41 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $reason
+     * @param  string  $cancelReason
+     * @param  int|null  $cancelAmount
+     * @param  RefundReceiveAccount|null  $refundReceiveAccount
+     * @param  int|null  $taxFreeAmount
+     * @param  int|null  $refundableAmount
      * @return PromiseInterface|Response
      */
-    public function cancel(string $reason): PromiseInterface|Response
+    public function cancel(
+        string $cancelReason,
+        ?int $cancelAmount = null,
+        ?RefundReceiveAccount $refundReceiveAccount = null,
+        ?int $taxFreeAmount = null,
+        ?int $refundableAmount = null
+    ): PromiseInterface|Response
     {
-        return $this->client->post($this->createEndpoint('/'.$this->paymentKey.'/cancel'), [
-            'cancelReason' => $reason,
-        ]);
+        $parameters = [
+            'cancelReason' => $cancelReason,
+        ];
+
+        if ($cancelAmount) {
+            $parameters['cancelAmount'] = $cancelAmount;
+        }
+
+        if ($refundReceiveAccount) {
+            $parameters['refundReceiveAccount'] = (array) $refundReceiveAccount;
+        }
+
+        if ($taxFreeAmount) {
+            $parameters['taxFreeAmount'] = $taxFreeAmount;
+        }
+
+        if ($refundableAmount) {
+            $parameters['refundableAmount'] = $refundableAmount;
+        }
+
+        return $this->client->post($this->createEndpoint('/'.$this->paymentKey.'/cancel'), $parameters);
     }
 }

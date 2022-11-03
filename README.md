@@ -102,7 +102,14 @@ use Getsolaris\LaravelTossPayments\Attributes\Payment;
 
 $payment = TossPayments::for(Payment::class)
     ->paymentId($paymentId)
-    ->cancel(reason: $reason);
+    ->cancel(
+        cancelReason: '고객 변심',
+        refundReceiveAccount: new RefundReceiveAccount(
+            bank: '11',
+            accountNumber: '111111111111',
+            holderName: '홍길동'
+        )
+    );
 
 return $payment->json();
 ```
