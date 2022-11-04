@@ -67,7 +67,6 @@ class Payment extends TossPayments implements AttributeInterface
      */
     protected string $customerIdentityNumber;
 
-
     /**
      * @var int
      */
@@ -372,8 +371,7 @@ class Payment extends TossPayments implements AttributeInterface
         ?string $customerEmail = null,
         ?string $customerName = null,
         ?Vbv $vbv = null
-    ): PromiseInterface|Response
-    {
+    ): PromiseInterface|Response {
         $parameters = [];
         if ($cardPassword) {
             $parameters['cardPassword'] = $cardPassword;
