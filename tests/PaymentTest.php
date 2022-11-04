@@ -4,5 +4,4 @@ namespace Getsolaris\LaravelTossPayments\tests;
 
 class PaymentTest
 {
-
 }
