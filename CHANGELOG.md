@@ -2,7 +2,7 @@
 
 All notable changes to laravel-tosspayments will be documented in this file.
 
-## Laravel Toss Payments v1.0.2 - 2022-11-04
+## v1.0.2 - 2022-11-04
 
 ### Laravel Toss Payments v1.0.2
 
