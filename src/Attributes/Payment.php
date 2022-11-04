@@ -259,8 +259,7 @@ class Payment extends TossPayments implements AttributeInterface
         ?bool $useEscrow = null,
         ?CashReceipt $cashReceipt = null,
         ?array $escrowProducts = null
-    ): PromiseInterface|Response
-    {
+    ): PromiseInterface|Response {
         $parameters = [];
         if ($accountType) {
             $parameters['accountType'] = $accountType;
