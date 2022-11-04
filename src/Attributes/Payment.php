@@ -5,6 +5,7 @@ namespace Getsolaris\LaravelTossPayments\Attributes;
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
 use Getsolaris\LaravelTossPayments\Objects\CashReceipt;
 use Getsolaris\LaravelTossPayments\Objects\RefundReceiveAccount;
+use Getsolaris\LaravelTossPayments\Objects\Vbv;
 use Getsolaris\LaravelTossPayments\TossPayments;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
@@ -45,6 +46,27 @@ class Payment extends TossPayments implements AttributeInterface
      * @var string
      */
     protected string $bank;
+
+    /**
+     * @var string
+     */
+    protected string $cardNumber;
+
+    /**
+     * @var string
+     */
+    protected string $cardExpirationYear;
+
+    /**
+     * @var string
+     */
+    protected string $cardExpirationMonth;
+
+    /**
+     * @var string
+     */
+    protected string $customerIdentityNumber;
+
 
     /**
      * @var int
@@ -286,6 +308,110 @@ class Payment extends TossPayments implements AttributeInterface
             'orderName' => $this->orderName,
             'customerName' => $this->customerName,
             'bank' => $this->bank,
+        ] + $parameters);
+    }
+
+    /**
+     * @param  string  $cardNumber
+     * @return $this
+     */
+    public function cardNumber(string $cardNumber): static
+    {
+        $this->cardNumber = $cardNumber;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $cardExpirationYear
+     * @return $this
+     */
+    public function cardExpirationYear(string $cardExpirationYear): static
+    {
+        $this->cardExpirationYear = $cardExpirationYear;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $cardExpirationMonth
+     * @return $this
+     */
+    public function cardExpirationMonth(string $cardExpirationMonth): static
+    {
+        $this->cardExpirationMonth = $cardExpirationMonth;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $customerIdentityNumber
+     * @return $this
+     */
+    public function customerIdentityNumber(string $customerIdentityNumber)
+    {
+        $this->customerIdentityNumber = $customerIdentityNumber;
+
+        return $this;
+    }
+
+    /**
+     * @param  string|null  $cardPassword
+     * @param  int|null  $cardInstallmentPlan
+     * @param  bool|null  $useFreeInstallmentPlan
+     * @param  int|null  $taxFreeAmount
+     * @param  string|null  $customerEmail
+     * @param  string|null  $customerName
+     * @param  Vbv|null  $vbv
+     * @return PromiseInterface|Response
+     */
+    public function keyIn(
+        ?string $cardPassword = null,
+        ?int $cardInstallmentPlan = null,
+        ?bool $useFreeInstallmentPlan = null,
+        ?int $taxFreeAmount = null,
+        ?string $customerEmail = null,
+        ?string $customerName = null,
+        ?Vbv $vbv = null
+    ): PromiseInterface|Response
+    {
+        $parameters = [];
+        if ($cardPassword) {
+            $parameters['cardPassword'] = $cardPassword;
+        }
+
+        if ($cardInstallmentPlan) {
+            $parameters['cardInstallmentPlan'] = $cardInstallmentPlan;
+        }
+
+        if ($useFreeInstallmentPlan) {
+            $parameters['useFreeInstallmentPlan'] = $useFreeInstallmentPlan;
+        }
+
+        if ($taxFreeAmount) {
+            $parameters['taxFreeAmount'] = $taxFreeAmount;
+        }
+
+        if ($customerEmail) {
+            $parameters['customerEmail'] = $customerEmail;
+        }
+
+        if ($customerName) {
+            $parameters['customerName'] = $customerName;
+        }
+
+        if ($vbv) {
+            $parameters['vbv'] = (array) $vbv;
+        }
+
+        return $this->client->post($this->createEndpoint('/key-in'), [
+            'amount' => $this->amount,
+            'orderId' => $this->orderId,
+            'orderName' => $this->orderName,
+            'cardNumber' => $this->cardNumber,
+            'cardExpirationYear' => $this->cardExpirationYear,
+            'cardExpirationMonth' => $this->cardExpirationMonth,
+            'customerIdentityNumber' => $this->customerIdentityNumber,
         ] + $parameters);
     }
 }
