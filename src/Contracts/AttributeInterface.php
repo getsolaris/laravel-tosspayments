@@ -8,5 +8,5 @@ interface AttributeInterface
 
     public function initializeUri(): static;
 
-    public function createEndpoint(?string $endpoint): string;
+    public function createEndpoint(?string $endpoint, bool $hasUri): string;
 }
