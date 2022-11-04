@@ -102,8 +102,8 @@ use Getsolaris\LaravelTossPayments\Attributes\Payment;
 
 $payment = TossPayments::for(Payment::class)
     ->paymentKey($paymentKey)
+    ->cancelReason('고객 변심')
     ->cancel(
-        cancelReason: '고객 변심',
         refundReceiveAccount: new RefundReceiveAccount(
             bank: '11',
             accountNumber: '111111111111',
@@ -112,6 +112,47 @@ $payment = TossPayments::for(Payment::class)
     );
 
 return $payment->json();
+```
+
+### [카드 번호 결제](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C-%EB%B2%88%ED%98%B8-%EA%B2%B0%EC%A0%9C)
+
+POST /v1/payments/key-in
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Payment;
+
+$keyIn = TossPayments::for(Payment::class)
+    ->amount($amount)
+    ->orderId($orderId)
+    ->orderName($orderName)
+    ->cardNumber($cardNumber)
+    ->cardExpirationYear($cardExpirationYear)
+    ->cardExpirationMonth($cardExpirationMonth)
+    ->customerIdentityNumber($customerIdentityNumber)
+    ->keyIn();
+
+return $keyIn->json();
+```
+
+
+### [가상계좌 발급 요청](https://docs.tosspayments.com/reference#%EA%B0%80%EC%83%81%EA%B3%84%EC%A2%8C-%EB%B0%9C%EA%B8%89-%EC%9A%94%EC%B2%AD)
+
+POST /v1/virtual-accounts
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Payment;
+
+$virtualAccounts = TossPayments::for(Payment::class)
+    ->amount($amount)
+    ->orderId($orderId)
+    ->orderName($orderName)
+    ->customerName($customerName)
+    ->bank('우리')
+    ->virtualAccounts();
+
+return $virtualAccounts->json();
 ```
 
 ## [거래 (Transaction)](https://docs.tosspayments.com/reference#%EA%B1%B0%EB%9E%98)
