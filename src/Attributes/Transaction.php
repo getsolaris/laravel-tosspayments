@@ -51,11 +51,16 @@ class Transaction extends TossPayments implements AttributeInterface
 
     /**
      * @param  string|null  $endpoint
+     * @param  bool  $withUri
      * @return string
      */
-    public function createEndpoint(?string $endpoint): string
+    public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
-        return $this->url.$this->uri.$this->start($endpoint);
+        if ($withUri) {
+            return $this->url.$this->uri.$this->start($endpoint);
+        }
+
+        return $this->url.$this->start($endpoint);
     }
 
     /**

@@ -9,8 +9,14 @@ class RefundReceiveAccount
      */
     public string $bank;
 
+    /**
+     * @var string
+     */
     public string $accountNumber;
 
+    /**
+     * @var string
+     */
     public string $holderName;
 
     public function __construct(string $bank, string $accountNumber, string $holderName)
