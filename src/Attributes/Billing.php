@@ -4,9 +4,12 @@ namespace Getsolaris\LaravelTossPayments\Attributes;
 
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
 use Getsolaris\LaravelTossPayments\Exceptions\LargeLimitException;
+use Getsolaris\LaravelTossPayments\Objects\Vbv;
 use Getsolaris\LaravelTossPayments\TossPayments;
+use GuzzleHttp\Promise\PromiseInterface;
+use Illuminate\Http\Client\Response;
 
-class Transaction extends TossPayments implements AttributeInterface
+class Billing extends TossPayments implements AttributeInterface
 {
     /**
      * @var string
@@ -16,22 +19,52 @@ class Transaction extends TossPayments implements AttributeInterface
     /**
      * @var string
      */
-    protected string $startDate;
+    protected string $customerKey;
 
     /**
      * @var string
      */
-    protected string $endDate;
+    protected string $cardNumber;
 
     /**
      * @var string
      */
-    protected string $startingAfter;
+    protected string $cardExpirationYear;
 
     /**
-     * @var int limit
+     * @var string
      */
-    protected int $limit = 100;
+    protected string $cardExpirationMonth;
+
+    /**
+     * @var string
+     */
+    protected string $customerIdentityNumber;
+
+    /**
+     * @var string
+     */
+    protected string $authKey;
+
+    /**
+     * @var string
+     */
+    protected string $billingKey;
+
+    /**
+     * @var int
+     */
+    protected int $amount;
+
+    /**
+     * @var string
+     */
+    protected string $orderName;
+
+    /**
+     * @var string
+     */
+    protected string $orderId;
 
     public function __construct()
     {
@@ -44,7 +77,7 @@ class Transaction extends TossPayments implements AttributeInterface
      */
     public function initializeUri(): static
     {
-        $this->uri = '/transactions';
+        $this->uri = '/billing';
 
         return $this;
     }
@@ -64,61 +97,184 @@ class Transaction extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $startDate
+     * @param  string  $customerKey
      * @return $this
      */
-    public function startDate(string $startDate): static
+    public function customerKey(string $customerKey): static
     {
-        $this->startDate = $startDate;
+        $this->customerKey = $customerKey;
 
         return $this;
     }
 
     /**
-     * @param  string  $endDate
+     * @param  string  $cardNumber
      * @return $this
      */
-    public function endDate(string $endDate): static
+    public function cardNumber(string $cardNumber): static
     {
-        $this->endDate = $endDate;
+        $this->cardNumber = $cardNumber;
 
         return $this;
     }
 
     /**
-     * @param  string  $startingAfter
+     * @param  string  $cardExpirationYear
      * @return $this
      */
-    public function startingAfter(string $startingAfter): static
+    public function cardExpirationYear(string $cardExpirationYear): static
     {
-        $this->startingAfter = $startingAfter;
+        $this->cardExpirationYear = $cardExpirationYear;
 
         return $this;
     }
 
     /**
+     * @param  string  $cardExpirationMonth
      * @return $this
-     *
-     * @throws LargeLimitException
      */
-    public function limit(int $limit): static
+    public function cardExpirationMonth(string $cardExpirationMonth): static
     {
-        if ($limit > 10000) {
-            throw new LargeLimitException();
+        $this->cardExpirationMonth = $cardExpirationMonth;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $customerIdentityNumber
+     * @return $this
+     */
+    public function customerIdentityNumber(string $customerIdentityNumber)
+    {
+        $this->customerIdentityNumber = $customerIdentityNumber;
+
+        return $this;
+    }
+
+    /**
+     * @param  string|null  $cardPassword
+     * @param  string|null  $customerName
+     * @param  string|null  $customerEmail
+     * @param  Vbv|null  $vbv
+     * @return PromiseInterface|Response
+     */
+    public function authorizationsCard(
+        ?string $cardPassword = null,
+        ?string $customerName = null,
+        ?string $customerEmail = null,
+        ?Vbv $vbv = null
+    ): PromiseInterface|Response {
+        $parameters = [];
+        if ($cardPassword) {
+            $parameters['cardPassword'] = $cardPassword;
         }
 
-        $this->limit = $limit;
+        if ($customerName) {
+            $parameters['customerName'] = $customerName;
+        }
+
+        if ($customerEmail) {
+            $parameters['customerEmail'] = $customerEmail;
+        }
+
+        if ($vbv) {
+            $parameters['vbv'] = (array) $vbv;
+        }
+
+        return $this->client->post($this->createEndpoint('/authorizations/card'), [
+            'customerKey' => $this->customerKey,
+            'cardNumber' => $this->cardNumber,
+            'cardExpirationYear' => $this->cardExpirationYear,
+            'cardExpirationMonth' => $this->cardExpirationMonth,
+            'customerIdentityNumber' => $this->customerIdentityNumber,
+        ] + $parameters);
+    }
+
+    /**
+     * @return PromiseInterface|Response
+     */
+    public function authorizationsIssue(): PromiseInterface|Response
+    {
+        return $this->client->post($this->createEndpoint('/authorizations/issue'), [
+            'authKey' => $this->authKey,
+            'customerKey' => $this->customerKey,
+        ]);
+    }
+
+
+    /**
+     * @param  string  $billingKey
+     * @return $this
+     */
+    public function billingKey(string $billingKey): static
+    {
+        $this->billingKey = $billingKey;
 
         return $this;
     }
 
-    public function get()
+    public function amount(int $amount): static
     {
-        return $this->client->get($this->createEndpoint('/'), [
-            'startDate' => $this->startDate,
-            'endDate' => $this->endDate,
-            'startingAfter' => $this->startingAfter ?? null,
-            'limit' => $this->limit,
-        ]);
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function orderId(string $orderId): static
+    {
+        $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    public function orderName(string $orderName): static
+    {
+        $this->orderName = $orderName;
+
+        return $this;
+    }
+
+    /**
+     * @param  string|null  $customerEmail
+     * @param  string|null  $customerName
+     * @param  string|null  $customerMobilePhone
+     * @param  int|null  $taxFreeAmount
+     * @param  int|null  $cardInstallmentPlan
+     * @return PromiseInterface|Response
+     */
+    public function request(
+        ?string $customerEmail = null,
+        ?string $customerName = null,
+        ?string $customerMobilePhone = null,
+        ?int $taxFreeAmount = null,
+        ?int $cardInstallmentPlan = null
+    ): PromiseInterface|Response {
+        $parameters = [];
+        if ($customerEmail) {
+            $parameters['customerEmail'] = $customerEmail;
+        }
+
+        if ($customerName) {
+            $parameters['customerName'] = $customerName;
+        }
+
+        if ($customerMobilePhone) {
+            $parameters['customerMobilePhone'] = $customerMobilePhone;
+        }
+
+        if ($taxFreeAmount) {
+            $parameters['taxFreeAmount'] = $taxFreeAmount;
+        }
+
+        if ($cardInstallmentPlan) {
+            $parameters['cardInstallmentPlan'] = $cardInstallmentPlan;
+        }
+
+        return $this->client->post($this->createEndpoint('/'.$this->billingKey), [
+            'amount' => $this->amount,
+            'customerKey' => $this->customerKey,
+            'orderId' => $this->orderId,
+            'orderName' => $this->orderName,
+        ] + $parameters);
     }
 }
