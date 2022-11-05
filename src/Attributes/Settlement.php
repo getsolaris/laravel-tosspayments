@@ -3,7 +3,6 @@
 namespace Getsolaris\LaravelTossPayments\Attributes;
 
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
-use Getsolaris\LaravelTossPayments\Exceptions\LargeLimitException;
 use Getsolaris\LaravelTossPayments\TossPayments;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
@@ -126,7 +125,8 @@ class Settlement extends TossPayments implements AttributeInterface
     /**
      * @return PromiseInterface|Response
      */
-    public function request(): PromiseInterface|Response {
+    public function request(): PromiseInterface|Response
+    {
         return $this->client->get($this->createEndpoint('/'), [
             'paymentKey' => $this->paymentKey,
         ]);
