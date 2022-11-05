@@ -5,8 +5,6 @@ namespace Getsolaris\LaravelTossPayments\Attributes;
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
 use Getsolaris\LaravelTossPayments\Exceptions\LargeLimitException;
 use Getsolaris\LaravelTossPayments\TossPayments;
-use GuzzleHttp\Promise\PromiseInterface;
-use Illuminate\Http\Client\Response;
 
 class Transaction extends TossPayments implements AttributeInterface
 {
@@ -24,6 +22,16 @@ class Transaction extends TossPayments implements AttributeInterface
      * @var string
      */
     protected string $endDate;
+
+    /**
+     * @var string
+     */
+    protected string $startingAfter;
+
+    /**
+     * @var int limit
+     */
+    protected int $limit = 100;
 
     public function __construct()
     {
@@ -78,29 +86,39 @@ class Transaction extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string|null  $startingAfter
-     * @param  int|null  $limit
-     * @return PromiseInterface|Response
+     * @param  string  $startingAfter
+     * @return $this
+     */
+    public function startingAfter(string $startingAfter): static
+    {
+        $this->startingAfter = $startingAfter;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     *
      * @throws LargeLimitException
      */
-    public function get(?string $startingAfter = null, ?int $limit = null): PromiseInterface|Response
+    public function limit(int $limit): static
     {
-        $parameters = [];
-        if ($startingAfter) {
-            $parameters['startingAfter'] = $startingAfter;
+        if ($limit > 10000) {
+            throw new LargeLimitException();
         }
 
-        if ($limit) {
-            if ($limit > 10000) {
-                throw new LargeLimitException();
-            }
+        $this->limit = $limit;
 
-            $parameters['limit'] = $limit;
-        }
+        return $this;
+    }
 
+    public function get()
+    {
         return $this->client->get($this->createEndpoint('/'), [
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
-        ] + $parameters);
+            'startingAfter' => $this->startingAfter ?? null,
+            'limit' => $this->limit,
+        ]);
     }
 }
