@@ -183,7 +183,7 @@ POST /v1/billing/authorizations/card
 use Getsolaris\LaravelTossPayments\TossPayments;
 use Getsolaris\LaravelTossPayments\Attributes\Billing;
 
-$payment = TossPayments::for(Billing::class)
+$billing = TossPayments::for(Billing::class)
     ->customerKey($customerKey)
     ->cardNumber($cardNumber)
     ->cardExpirationYear($cardExpirationYear)
@@ -191,7 +191,7 @@ $payment = TossPayments::for(Billing::class)
     ->customerIdentityNumber($customerIdentityNumber)
     ->authorizationsCard();
 
-return $payment->json();
+return $billing->json();
 ```
 
 ### [authKey로 카드 자동 결제 빌링키 발급 요청](https://docs.tosspayments.com/reference#authkey%EB%A1%9C-%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EB%B9%8C%EB%A7%81%ED%82%A4-%EB%B0%9C%EA%B8%89-%EC%9A%94%EC%B2%AD)
@@ -202,12 +202,12 @@ POST /v1/billing/authorizations/issue
 use Getsolaris\LaravelTossPayments\TossPayments;
 use Getsolaris\LaravelTossPayments\Attributes\Billing;
 
-$payment = TossPayments::for(Billing::class)
+$billing = TossPayments::for(Billing::class)
     ->customerKey($customerKey)
     ->authKey($authKey)
     ->authorizationsIssue();
 
-return $payment->json();
+return $billing->json();
 ```
 
 ### [카드 자동 결제 승인 요청](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8-%EC%9A%94%EC%B2%AD)
@@ -218,14 +218,46 @@ POST /v1/billing/{billingKey}
 use Getsolaris\LaravelTossPayments\TossPayments;
 use Getsolaris\LaravelTossPayments\Attributes\Billing;
 
-$payment = TossPayments::for(Billing::class)
+$billing = TossPayments::for(Billing::class)
     ->customerKey($customerKey)
     ->authKey($authKey)
     ->authorizationsIssue();
 
-return $payment->json();
+return $billing->json();
 ```
 
+## [정산 (Settlement)](https://docs.tosspayments.com/reference#%EC%A0%95%EC%82%B0)
+
+### [정산 조회](https://docs.tosspayments.com/reference#%EC%A0%95%EC%82%B0-%EC%A1%B0%ED%9A%8C)
+
+GET /v1/settlements
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Settlement;
+
+$settlements = TossPayments::for(Settlement::class)
+    ->startDate($startDate)
+    ->endDate($endDate)
+    ->get();
+
+return $settlements->json();
+```
+
+### [수동 정산 요청](https://docs.tosspayments.com/reference#%EC%88%98%EB%8F%99-%EC%A0%95%EC%82%B0-%EC%9A%94%EC%B2%AD)
+
+POST /v1/settlements
+
+```php
+use Getsolaris\LaravelTossPayments\TossPayments;
+use Getsolaris\LaravelTossPayments\Attributes\Settlement;
+
+$settlement = TossPayments::for(Settlement::class)
+    ->paymentKey($paymentKey)
+    ->request();
+
+return $settlement->json();
+```
 
 ## [테스트 코드 사용하기](https://docs.tosspayments.com/reference/error-codes#%EC%97%90%EB%9F%AC-%EC%BD%94%EB%93%9C)
 
