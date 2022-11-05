@@ -3,7 +3,6 @@
 namespace Getsolaris\LaravelTossPayments\Attributes;
 
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
-use Getsolaris\LaravelTossPayments\Objects\Vbv;
 use Getsolaris\LaravelTossPayments\TossPayments;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
@@ -48,7 +47,8 @@ class Promotion extends TossPayments implements AttributeInterface
     /**
      * @return PromiseInterface|Response
      */
-    public function get(): PromiseInterface|Response {
+    public function get(): PromiseInterface|Response
+    {
         return $this->client->get($this->createEndpoint('/card'));
     }
 }
