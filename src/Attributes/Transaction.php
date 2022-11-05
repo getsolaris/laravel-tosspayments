@@ -81,6 +81,7 @@ class Transaction extends TossPayments implements AttributeInterface
      * @param  string|null  $startingAfter
      * @param  int|null  $limit
      * @return PromiseInterface|Response
+     *
      * @throws LargeLimitException
      */
     public function get(?string $startingAfter = null, ?int $limit = null): PromiseInterface|Response
