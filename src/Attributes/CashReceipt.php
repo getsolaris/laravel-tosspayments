@@ -3,7 +3,6 @@
 namespace Getsolaris\LaravelTossPayments\Attributes;
 
 use Getsolaris\LaravelTossPayments\Contracts\AttributeInterface;
-use Getsolaris\LaravelTossPayments\Objects\Vbv;
 use Getsolaris\LaravelTossPayments\TossPayments;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
@@ -150,7 +149,8 @@ class CashReceipt extends TossPayments implements AttributeInterface
      * @param  int|null  $taxFreeAmount
      * @return PromiseInterface|Response
      */
-    public function request(?int $taxFreeAmount = null): PromiseInterface|Response {
+    public function request(?int $taxFreeAmount = null): PromiseInterface|Response
+    {
         $parameters = [];
         if ($taxFreeAmount) {
             $parameters['taxFreeAmount'] = $taxFreeAmount;
@@ -169,7 +169,8 @@ class CashReceipt extends TossPayments implements AttributeInterface
      * @param  int|null  $amount
      * @return PromiseInterface|Response
      */
-    public function cancel(?int $amount = null): PromiseInterface|Response {
+    public function cancel(?int $amount = null): PromiseInterface|Response
+    {
         $parameters = [];
         if ($amount) {
             $parameters['amount'] = $amount;
@@ -194,7 +195,8 @@ class CashReceipt extends TossPayments implements AttributeInterface
      * @param  int|null  $limit
      * @return PromiseInterface|Response
      */
-    public function get(?int $cursor = null, ?int $limit = null): PromiseInterface|Response {
+    public function get(?int $cursor = null, ?int $limit = null): PromiseInterface|Response
+    {
         $parameters = [];
         if ($cursor) {
             $parameters['cursor'] = $cursor;
