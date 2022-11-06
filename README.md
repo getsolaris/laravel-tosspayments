@@ -265,7 +265,7 @@ return $settlement->json();
 
 ### [현금영수증 발급](https://docs.tosspayments.com/reference#%ED%98%84%EA%B8%88%EC%98%81%EC%88%98%EC%A6%9D)
 
-GET /v1/cash-receipts
+POST /v1/cash-receipts
 
 ```php
 use Getsolaris\LaravelTossPayments\TossPayments;
