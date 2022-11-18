@@ -4,7 +4,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/getsolaris/laravel-tosspayments.svg?style=flat-square)](https://packagist.org/packages/getsolaris/laravel-tosspayments)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/getsolaris/laravel-tosspayments/run-tests?label=tests)](https://github.com/getsolaris/laravel-tosspayments/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/getsolaris/laravel-tosspayments/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/getsolaris/laravel-tosspayments/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/getsolaris/laravel-tosspayments.svg?style=flat-square)](https://packagist.org/packages/getsolaris/laravel-tosspayments)
 
 
 토스페이먼츠 (Toss Payments) 라라벨 API 입니다. 
