@@ -3,6 +3,7 @@
 namespace Getsolaris\LaravelTossPayments\tests;
 
 use Getsolaris\LaravelTossPayments\Enums\CodeProvider;
+use Getsolaris\LaravelTossPayments\Exceptions\InvalidInputTargetCodeException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ class CodeProviderTest extends TestCase
      * CodeProvider 클래스를 직접 호출하는 경우 예외처리
      *
      * @throws \ReflectionException
-     * @throws InvalidInputTargetCodeException
+     * @throws \LogicException|InvalidInputTargetCodeException
      */
     public function testCodeProvider(): void
     {
