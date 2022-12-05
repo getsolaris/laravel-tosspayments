@@ -8,10 +8,12 @@ use LogicException;
 class CodeProvider
 {
     /**
-     * @throws \ReflectionException
+     * @param  int|string  $code
+     * @return string|int
      * @throws InvalidInputTargetCodeException
+     * @throws \ReflectionException
      */
-    public static function toCode(int|string $code)
+    public static function toCode(int|string $code): string|int
     {
         $class = get_called_class();
         if ($class === self::class) {
