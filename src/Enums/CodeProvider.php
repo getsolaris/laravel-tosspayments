@@ -10,6 +10,7 @@ class CodeProvider
     /**
      * @param  int|string  $code
      * @return string|int
+     *
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
