@@ -11,6 +11,11 @@
 ### API 버전: 2022-11-16
 [API 버전 정책](https://docs.tosspayments.com/reference/versioning#%EB%82%B4-%EC%83%81%EC%A0%90%EC%9D%98-api-%EB%B2%84%EC%A0%84-%ED%99%95%EC%9D%B8%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0)
 
+| Version | API Version |
+|---------|-------------|
+| v1.2    | 2022-11-16  |
+| v1.1    | 2022-07-27  |
+
 ---
 
 # 설치
