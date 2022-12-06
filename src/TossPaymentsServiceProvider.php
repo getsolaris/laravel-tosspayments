@@ -17,6 +17,7 @@ class TossPaymentsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__."/../config/{$this->name}.php", $this->name);
+        $this->app->register(TossPaymentRouteServiceProvider::class);
 
         $this->app->bind(TossPayments::class, function ($app) {
             return TossPayments::for($app['request']);
