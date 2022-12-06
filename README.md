@@ -49,289 +49,32 @@ Basic 인증 방식은 `{SECRET_KEY}:` 를 Base64 인코딩 한 값을 사용합
 
 ## [결제 (Payment)](https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C)
 
-### [결제승인](https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8)
+[예제 보기](examples/PAYMENT.md)
 
-POST /v1/payments/confirm
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-
-$payment = TossPayments::for(Payment::class)
-    ->paymentKey($paymentKey)
-    ->orderId($orderId)
-    ->amount($amount)
-    ->confirm();
-
-return $payment->json();
-```
-
-### [paymentKey로 결제 조회](https://docs.tosspayments.com/reference#paymentkey%EB%A1%9C-%EA%B2%B0%EC%A0%9C-%EC%A1%B0%ED%9A%8C)
-
-GET /v1/payments/{paymentKey}
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-
-$payment = TossPayments::for(Payment::class)
-    ->paymentKey($paymentKey)
-    ->get();
-
-return $payment->json();
-```
-
-### [orderId로 결제 조회](https://docs.tosspayments.com/reference#orderid%EB%A1%9C-%EA%B2%B0%EC%A0%9C-%EC%A1%B0%ED%9A%8C)
-
-GET /v1/payments/orders/{orderId}
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-
-$payment = TossPayments::for(Payment::class)
-    ->orderId($orderId)
-    ->get();
-
-return $payment->json();
-```
-
-### [결제 취소](https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C-%EC%B7%A8%EC%86%8C)
-
-POST /v1/payments/{paymentKey}/cancel
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-
-$payment = TossPayments::for(Payment::class)
-    ->paymentKey($paymentKey)
-    ->cancelReason('고객 변심')
-    ->cancel(
-        refundReceiveAccount: new RefundReceiveAccount(
-            bank: '11',
-            accountNumber: '111111111111',
-            holderName: '홍길동'
-        )
-    );
-
-return $payment->json();
-```
-
-### [카드 번호 결제](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C-%EB%B2%88%ED%98%B8-%EA%B2%B0%EC%A0%9C)
-
-POST /v1/payments/key-in
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-
-$keyIn = TossPayments::for(Payment::class)
-    ->amount($amount)
-    ->orderId($orderId)
-    ->orderName($orderName)
-    ->cardNumber($cardNumber)
-    ->cardExpirationYear($cardExpirationYear)
-    ->cardExpirationMonth($cardExpirationMonth)
-    ->customerIdentityNumber($customerIdentityNumber)
-    ->keyIn();
-
-return $keyIn->json();
-```
-
-
-### [가상계좌 발급 요청](https://docs.tosspayments.com/reference#%EA%B0%80%EC%83%81%EA%B3%84%EC%A2%8C-%EB%B0%9C%EA%B8%89-%EC%9A%94%EC%B2%AD)
-
-POST /v1/virtual-accounts
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-
-$virtualAccounts = TossPayments::for(Payment::class)
-    ->amount($amount)
-    ->orderId($orderId)
-    ->orderName($orderName)
-    ->customerName($customerName)
-    ->bank('우리')
-    ->virtualAccounts();
-
-return $virtualAccounts->json();
-```
 
 ## [거래 (Transaction)](https://docs.tosspayments.com/reference#%EA%B1%B0%EB%9E%98)
 
-### [거래 조회](https://docs.tosspayments.com/reference#%EA%B1%B0%EB%9E%98-%EC%A1%B0%ED%9A%8C)
+[예제 보기](examples/TRANSACTION.md)
 
-GET /v1/transactions
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Transaction;
-
-$transactions = TossPayments::for(Transaction::class)
-    ->startDate('2022-01-01')
-    ->endDate('2022-12-31')
-    ->get();
-
-return $transactions->json();
-```
 
 ## [자동 결제 (Billing)](https://docs.tosspayments.com/reference#%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C)
 
-### [customerKey로 카드 자동 결제 빌링키 발급 요청](https://docs.tosspayments.com/reference#customerkey%EB%A1%9C-%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EB%B9%8C%EB%A7%81%ED%82%A4-%EB%B0%9C%EA%B8%89-%EC%9A%94%EC%B2%AD)
+[예제 보기](examples/BILLING.md)
 
-POST /v1/billing/authorizations/card
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Billing;
-
-$billing = TossPayments::for(Billing::class)
-    ->customerKey($customerKey)
-    ->cardNumber($cardNumber)
-    ->cardExpirationYear($cardExpirationYear)
-    ->cardExpirationMonth($cardExpirationMonth)
-    ->customerIdentityNumber($customerIdentityNumber)
-    ->authorizationsCard();
-
-return $billing->json();
-```
-
-### [authKey로 카드 자동 결제 빌링키 발급 요청](https://docs.tosspayments.com/reference#authkey%EB%A1%9C-%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EB%B9%8C%EB%A7%81%ED%82%A4-%EB%B0%9C%EA%B8%89-%EC%9A%94%EC%B2%AD)
-
-POST /v1/billing/authorizations/issue
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Billing;
-
-$billing = TossPayments::for(Billing::class)
-    ->customerKey($customerKey)
-    ->authKey($authKey)
-    ->authorizationsIssue();
-
-return $billing->json();
-```
-
-### [카드 자동 결제 승인 요청](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8-%EC%9A%94%EC%B2%AD)
-
-POST /v1/billing/{billingKey}
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Billing;
-
-$billing = TossPayments::for(Billing::class)
-    ->customerKey($customerKey)
-    ->authKey($authKey)
-    ->authorizationsIssue();
-
-return $billing->json();
-```
 
 ## [정산 (Settlement)](https://docs.tosspayments.com/reference#%EC%A0%95%EC%82%B0)
 
-### [정산 조회](https://docs.tosspayments.com/reference#%EC%A0%95%EC%82%B0-%EC%A1%B0%ED%9A%8C)
-
-GET /v1/settlements
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Settlement;
-
-$settlements = TossPayments::for(Settlement::class)
-    ->startDate($startDate)
-    ->endDate($endDate)
-    ->get();
-
-return $settlements->json();
-```
-
-### [수동 정산 요청](https://docs.tosspayments.com/reference#%EC%88%98%EB%8F%99-%EC%A0%95%EC%82%B0-%EC%9A%94%EC%B2%AD)
-
-POST /v1/settlements
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Settlement;
-
-$settlement = TossPayments::for(Settlement::class)
-    ->paymentKey($paymentKey)
-    ->request();
-
-return $settlement->json();
-```
-
+[예제 보기](examples/SETTLEMENT.md)
 
 
 ## [현금영수증 (CashReceipt)](https://docs.tosspayments.com/reference#%ED%98%84%EA%B8%88%EC%98%81%EC%88%98%EC%A6%9D)
 
-### [현금영수증 발급](https://docs.tosspayments.com/reference#%ED%98%84%EA%B8%88%EC%98%81%EC%88%98%EC%A6%9D)
-
-POST /v1/cash-receipts
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\CashReceipt;
-
-$cashReceipt = TossPayments::for(CashReceipt::class)
-    ->amount($amount)
-    ->orderId($orderId)
-    ->orderName($orderName)
-    ->customerIdentityNumber($customerIdentityNumber)
-    ->type($type)
-    ->request();
-
-return $cashReceipt->json();
-```
-
-### [현금영수증 발급 취소](https://docs.tosspayments.com/reference#%ED%98%84%EA%B8%88%EC%98%81%EC%88%98%EC%A6%9D-%EB%B0%9C%EA%B8%89-%EC%B7%A8%EC%86%8C)
-
-POST /v1/cash-receipts/{receiptKey}/cancel
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\CashReceipt;
-
-$cashReceipt = TossPayments::for(CashReceipt::class)
-    ->receiptKey($receiptKey)
-    ->cancel();
-
-return $cashReceipt->json();
-```
-
-### [현금영수증 조회](https://docs.tosspayments.com/reference#%ED%98%84%EA%B8%88%EC%98%81%EC%88%98%EC%A6%9D-%EC%A1%B0%ED%9A%8C)
-
-GET /v1/cash-receipts
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\CashReceipt;
-
-$cashReceipts = TossPayments::for(CashReceipt::class)
-    ->requestDate($requestDate)
-    ->get();
-
-return $cashReceipts->json();
-```
+[예제 보기](examples/CASHRECEIPT.md)
 
 
 ## [카드사 혜택 조회 (Promotion)](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C%EC%82%AC-%ED%98%9C%ED%83%9D-%EC%A1%B0%ED%9A%8C)
 
-### [카드사 혜택 조회](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C%EC%82%AC-%ED%98%9C%ED%83%9D-%EC%A1%B0%ED%9A%8C-1)
-
-GET /v1/promotions/card
-
-```php
-use Getsolaris\LaravelTossPayments\TossPayments;
-use Getsolaris\LaravelTossPayments\Attributes\Promotion;
-
-$promotions = TossPayments::for(Promotion::class)
-    ->get();
-
-return $promotions->json();
-```
+[예제 보기](examples/PROMOTION.md)
 
 
 ## [테스트 코드 사용하기](https://docs.tosspayments.com/reference/error-codes#%EC%97%90%EB%9F%AC-%EC%BD%94%EB%93%9C)
