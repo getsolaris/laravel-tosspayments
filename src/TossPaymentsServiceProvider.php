@@ -9,7 +9,7 @@ class TossPaymentsServiceProvider extends ServiceProvider
     /**
      * @var string
      */
-    private string $name = 'toss-payments';
+    private string $name = 'tosspayments';
 
     /**
      * @return void
@@ -17,7 +17,6 @@ class TossPaymentsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__."/../config/{$this->name}.php", $this->name);
-        $this->app->register(TossPaymentRouteServiceProvider::class);
 
         $this->app->bind(TossPayments::class, function ($app) {
             return TossPayments::for($app['request']);
@@ -32,5 +31,10 @@ class TossPaymentsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__."/../config/{$this->name}.php" => config_path($this->name.'.php'),
         ], 'config');
+
+        $this->publishes([
+            __DIR__."/../routes/{$this->name}.php" => base_path('routes/'.$this->name.'.php'),
+            __DIR__."/../src/Webhooks/TossPaymentsWebhook.php" => base_path('app/Webhooks/TossPaymentsWebhook.php'),
+        ], 'webhook');
     }
 }
