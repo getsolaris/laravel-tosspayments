@@ -76,6 +76,22 @@ Basic 인증 방식은 `{SECRET_KEY}:` 를 Base64 인코딩 한 값을 사용합
 
 [예제 보기](examples/PROMOTION.md)
 
+## [웹훅 (Webhook) 연동하기](https://docs.tosspayments.com/guides/webhook#%EC%9B%B9%ED%9B%85webhook-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0)
+
+웹훅을 사용하기 전에 토스페이먼츠 개발자센터 웹훅 페이지에서 웹훅을 등록해주세요.
+
+웹훅을 이용하기 전에 `config/tosspayments.php` 파일에서 `webhook` 설정을 확인해주세요.
+
+기본 웹훅 설정값입니다.
+- `queue` 는 `config('queue.default')` 로 설정되어 있습니다.
+- `controller` 는 `Getsolaris\LaravelTossPayments\Controllers\WebhookController` 로 설정되어 있습니다.
+
+하지만 따로 수정을 하기 위해서는 아래의 명령어를 수행합니다.
+
+```bash
+php artisan vendor:publish --provider="Getsolaris\LaravelTossPayments\TossPaymentsServiceProvider" --tag="webhook"
+```
+
 
 ## [테스트 코드 사용하기](https://docs.tosspayments.com/reference/error-codes#%EC%97%90%EB%9F%AC-%EC%BD%94%EB%93%9C)
 

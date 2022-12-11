@@ -1,8 +1,5 @@
 <?php
 
-use Getsolaris\LaravelTossPayments\Controllers\WebhookController;
-use Illuminate\Support\Facades\Route;
+use Getsolaris\LaravelTossPayments\Handlers\TossPaymentsWebhookHandler;
 
-Route::prefix('tosspayments')->group(function () {
-    Route::any('webhook', [WebhookController::class, '__invoke']);
-});
+Route::post('webhooks/tosspayments', [TossPaymentsWebhookHandler::class, '__invoke']);

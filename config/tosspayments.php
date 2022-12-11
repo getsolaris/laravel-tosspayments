@@ -7,4 +7,11 @@ return [
     'secret_key' => env('TOSS_PAYMENTS_SECRET_KEY'),
     'content_type' => 'application/json',
     'accept' => 'application/json',
+
+    'webhook' => [
+        'handler' => [
+            'controller' => \App\Http\Controllers\WebhookController::class,
+            'method' => '__invoke',
+        ],
+    ],
 ];

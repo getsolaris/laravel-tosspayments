@@ -34,7 +34,8 @@ class TossPaymentsServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__."/../routes/{$this->name}.php" => base_path('routes/'.$this->name.'.php'),
-            __DIR__.'/../src/Webhooks/TossPaymentsWebhook.php' => base_path('app/Webhooks/TossPaymentsWebhook.php'),
         ], 'webhook');
+
+        $this->loadRoutesFrom(__DIR__."/../routes/{$this->name}.php");
     }
 }
