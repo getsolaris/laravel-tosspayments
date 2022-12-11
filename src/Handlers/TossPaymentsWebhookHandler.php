@@ -20,6 +20,7 @@ class TossPaymentsWebhookHandler
 
         $target = new \ReflectionClass(config('tosspayments.webhook.handler.controller'));
         $method = config('tosspayments.webhook.handler.method');
+
         return $target->newInstance()->$method($payload);
     }
 }

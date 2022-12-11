@@ -2,8 +2,6 @@
 
 namespace Getsolaris\LaravelTossPayments\tests;
 
-use Getsolaris\LaravelTossPayments\Enums\BankCode;
-use Getsolaris\LaravelTossPayments\Exceptions\InvalidInputTargetCodeException;
 use PHPUnit\Framework\TestCase;
 
 class WebhookTest extends TestCase
