@@ -82,11 +82,18 @@ Basic 인증 방식은 `{SECRET_KEY}:` 를 Base64 인코딩 한 값을 사용합
 
 웹훅을 이용하기 전에 `config/tosspayments.php` 파일에서 `webhook` 설정을 확인해주세요.
 
-기본 웹훅 설정값입니다.
-- `queue` 는 `config('queue.default')` 로 설정되어 있습니다.
-- `controller` 는 `Getsolaris\LaravelTossPayments\Controllers\WebhookController` 로 설정되어 있습니다.
+```
+'webhook' => [
+    'handler' => [
+        'controller' => \App\Http\Controllers\WebhookController::class,
+        'method' => '__invoke',
+    ],
+],
+```
 
-하지만 따로 수정을 하기 위해서는 아래의 명령어를 수행합니다.
+`handler` 설정을 변경하여 웹훅을 처리할 컨트롤러와 메소드를 지정할 수 있습니다.
+
+또한 아래의 명령어를 실행하여 기본 라우트 설정값인 `url/webhooks/tosspayments` 를 변경할 수 있습니다.
 
 ```bash
 php artisan vendor:publish --provider="Getsolaris\LaravelTossPayments\TossPaymentsServiceProvider" --tag="webhook"
