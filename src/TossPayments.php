@@ -91,8 +91,8 @@ class TossPayments
      */
     protected function initializeApiUrl(): static
     {
-        $this->endpoint = config('toss-payments.endpoint');
-        $this->version = config('toss-payments.version');
+        $this->endpoint = config('tosspayments.endpoint');
+        $this->version = config('tosspayments.version');
         $this->url = $this->endpoint.'/'.$this->version;
 
         return $this;
@@ -103,8 +103,8 @@ class TossPayments
      */
     protected function initializeKeys(): static
     {
-        $this->clientKey = config('toss-payments.client_key');
-        $this->secretKey = config('toss-payments.secret_key');
+        $this->clientKey = config('tosspayments.client_key');
+        $this->secretKey = config('tosspayments.secret_key');
 
         return $this;
     }
