@@ -2,49 +2,27 @@
 
 namespace Getsolaris\LaravelTossPayments;
 
+use Getsolaris\LaravelTossPayments\Attributes\Payment;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class TossPayments
 {
-    /**
-     * @var string
-     */
-    protected $attribute;
+    protected Payment $attribute;
 
-    /**
-     * @var
-     */
-    protected $client;
+    protected PendingRequest $client;
 
-    /**
-     * @var string
-     */
     protected string $endpoint;
 
-    /**
-     * @var string
-     */
     protected string $version;
 
-    /**
-     * @var string
-     */
     protected string $url;
 
-    /**
-     * @var string
-     */
     protected string $clientKey;
 
-    /**
-     * @var string
-     */
     protected string $secretKey;
 
-    /**
-     * @var array
-     */
     protected array $headers = [];
 
     public function __construct($attribute)
@@ -62,6 +40,7 @@ class TossPayments
      */
     public function setAttribute($attribute): static
     {
+        ray($attribute)->label('setAttribute');
         $this->attribute = $attribute;
 
         return $this;

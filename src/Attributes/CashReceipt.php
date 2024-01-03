@@ -9,44 +9,20 @@ use Illuminate\Http\Client\Response;
 
 class CashReceipt extends TossPayments implements AttributeInterface
 {
-    /**
-     * @var string
-     */
     protected string $uri;
 
-    /**
-     * @var string
-     */
     protected string $receiptKey;
 
-    /**
-     * @var int
-     */
     protected int $amount;
 
-    /**
-     * @var string
-     */
     protected string $orderId;
 
-    /**
-     * @var string
-     */
     protected string $orderName;
 
-    /**
-     * @var string
-     */
     protected string $customerIdentityNumber;
 
-    /**
-     * @var string
-     */
     protected string $type;
 
-    /**
-     * @var string
-     */
     protected string $requestDate;
 
     public function __construct()
@@ -66,21 +42,21 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string|null  $endpoint
-     * @param  bool  $withUri
+     * @param string|null $endpoint
+     * @param bool $withUri
      * @return string
      */
     public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
         if ($withUri) {
-            return $this->url.$this->uri.$this->start($endpoint);
+            return $this->url . $this->uri . $this->start($endpoint);
         }
 
-        return $this->url.$this->start($endpoint);
+        return $this->url . $this->start($endpoint);
     }
 
     /**
-     * @param  string  $receiptKey
+     * @param string $receiptKey
      * @return $this
      */
     public function receiptKey(string $receiptKey): static
@@ -91,7 +67,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  int  $amount
+     * @param int $amount
      * @return $this
      */
     public function amount(int $amount): static
@@ -102,7 +78,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $orderId
+     * @param string $orderId
      * @return $this
      */
     public function orderId(string $orderId): static
@@ -113,7 +89,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $orderName
+     * @param string $orderName
      * @return $this
      */
     public function orderName(string $orderName): static
@@ -124,7 +100,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $customerIdentityNumber
+     * @param string $customerIdentityNumber
      * @return $this
      */
     public function customerIdentityNumber(string $customerIdentityNumber): static
@@ -135,7 +111,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $type
+     * @param string $type
      * @return $this
      */
     public function type(string $type): static
@@ -146,7 +122,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  int|null  $taxFreeAmount
+     * @param int|null $taxFreeAmount
      * @return PromiseInterface|Response
      */
     public function request(?int $taxFreeAmount = null): PromiseInterface|Response
@@ -157,16 +133,16 @@ class CashReceipt extends TossPayments implements AttributeInterface
         }
 
         return $this->client->post($this->createEndpoint('/'), [
-            'amount' => $this->amount,
-            'orderId' => $this->orderId,
-            'orderName' => $this->orderName,
-            'customerIdentityNumber' => $this->customerIdentityNumber,
-            'type' => $this->type,
-        ] + $parameters);
+                'amount' => $this->amount,
+                'orderId' => $this->orderId,
+                'orderName' => $this->orderName,
+                'customerIdentityNumber' => $this->customerIdentityNumber,
+                'type' => $this->type,
+            ] + $parameters);
     }
 
     /**
-     * @param  int|null  $amount
+     * @param int|null $amount
      * @return PromiseInterface|Response
      */
     public function cancel(?int $amount = null): PromiseInterface|Response
@@ -176,11 +152,11 @@ class CashReceipt extends TossPayments implements AttributeInterface
             $parameters['amount'] = $amount;
         }
 
-        return $this->client->post($this->createEndpoint('/'.$this->receiptKey.'/cancel'), $parameters);
+        return $this->client->post($this->createEndpoint('/' . $this->receiptKey . '/cancel'), $parameters);
     }
 
     /**
-     * @param  string  $requestDate
+     * @param string $requestDate
      * @return $this
      */
     public function requestDate(string $requestDate): static
@@ -191,8 +167,8 @@ class CashReceipt extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  int|null  $cursor
-     * @param  int|null  $limit
+     * @param int|null $cursor
+     * @param int|null $limit
      * @return PromiseInterface|Response
      */
     public function get(?int $cursor = null, ?int $limit = null): PromiseInterface|Response
@@ -207,7 +183,7 @@ class CashReceipt extends TossPayments implements AttributeInterface
         }
 
         return $this->client->get($this->createEndpoint('/'), [
-            'requestDate' => $this->requestDate,
-        ] + $parameters);
+                'requestDate' => $this->requestDate,
+            ] + $parameters);
     }
 }

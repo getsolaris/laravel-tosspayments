@@ -4,32 +4,32 @@ namespace Getsolaris\LaravelTossPayments\Enums;
 
 final class ForeignCardCode extends CodeProvider
 {
-    const DINERS = [
+    public const DINERS = [
         'code' => '6D',
         'kr' => '다이너스',
     ];
 
-    const DISCOVER = [
+    public const DISCOVER = [
         'code' => '6I',
         'kr' => '디스커버',
     ];
 
-    const MASTER = [
+    public const MASTER = [
         'code' => '4M',
         'kr' => '마스터',
     ];
 
-    const UNIONPAY = [
+    public const UNIONPAY = [
         'code' => '3C',
         'kr' => '유니온페이',
     ];
 
-    const JCB = [
+    public const JCB = [
         'code' => '4J',
         'kr' => null,
     ];
 
-    const VISA = [
+    public const VISA = [
         'code' => '4V',
         'kr' => '비자',
     ];

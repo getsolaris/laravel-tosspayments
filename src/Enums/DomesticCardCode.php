@@ -4,112 +4,112 @@ namespace Getsolaris\LaravelTossPayments\Enums;
 
 final class DomesticCardCode extends CodeProvider
 {
-    const GWANGJUBANK = [
+    public const GWANGJUBANK = [
         'code' => 46,
         'kr' => '광주',
     ];
 
-    const LOTTE = [
+    public const LOTTE = [
         'code' => 71,
         'kr' => '롯데',
     ];
 
-    const KDBBANK = [
+    public const KDBBANK = [
         'code' => 30,
         'kr' => '산업',
     ];
 
-    const BC = [
+    public const BC = [
         'code' => 31,
         'kr' => null,
     ];
 
-    const SAMSUNG = [
+    public const SAMSUNG = [
         'code' => 51,
         'kr' => '삼성',
     ];
 
-    const SAEMAUL = [
+    public const SAEMAUL = [
         'code' => 38,
         'kr' => '새마을',
     ];
 
-    const SHINHAN = [
+    public const SHINHAN = [
         'code' => 41,
         'kr' => '신한',
     ];
 
-    const SHINHYEOP = [
+    public const SHINHYEOP = [
         'code' => 62,
         'kr' => '신협',
     ];
 
-    const CITI = [
+    public const CITI = [
         'code' => 36,
         'kr' => '씨티',
     ];
 
-    const WOORI = [
+    public const WOORI = [
         'code' => 33,
         'kr' => '우리',
     ];
 
-    const POST = [
+    public const POST = [
         'code' => 37,
         'kr' => '우체국',
     ];
 
-    const SAVINGBANK = [
+    public const SAVINGBANK = [
         'code' => 39,
         'kr' => '저축',
     ];
 
-    const JEONBUKBANK = [
+    public const JEONBUKBANK = [
         'code' => 35,
         'kr' => '전북',
     ];
 
-    const JEJUBANK = [
+    public const JEJUBANK = [
         'code' => 42,
         'kr' => '제주',
     ];
 
-    const KAKAOBANK = [
+    public const KAKAOBANK = [
         'code' => 15,
         'kr' => '카카오뱅크',
     ];
 
-    const KBANK = [
+    public const KBANK = [
         'code' => '3A',
         'kr' => '케이뱅크',
     ];
 
-    const TOSSBANK = [
+    public const TOSSBANK = [
         'code' => 24,
         'kr' => '토스뱅크',
     ];
 
-    const HANA = [
+    public const HANA = [
         'code' => 21,
         'kr' => '하나',
     ];
 
-    const HYUNDAI = [
+    public const HYUNDAI = [
         'code' => 61,
         'kr' => '현대',
     ];
 
-    const KOOKMIN = [
+    public const KOOKMIN = [
         'code' => 11,
         'kr' => '국민',
     ];
 
-    const NONGHYEOP = [
+    public const NONGHYEOP = [
         'code' => 91,
         'kr' => '농협',
     ];
 
-    const SUHYEOP = [
+    public const SUHYEOP = [
         'code' => 34,
         'kr' => '수협',
     ];
