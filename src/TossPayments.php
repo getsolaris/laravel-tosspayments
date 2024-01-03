@@ -9,9 +9,9 @@ use Illuminate\Support\Str;
 
 class TossPayments
 {
-    protected Payment $attribute;
+    protected $attribute;
 
-    protected PendingRequest $client;
+    protected $client;
 
     protected string $endpoint;
 
