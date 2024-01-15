@@ -40,7 +40,6 @@ class TossPayments
      */
     public function setAttribute($attribute): static
     {
-        // ray($attribute)->label('setAttribute');
         $this->attribute = $attribute;
 
         return $this;
