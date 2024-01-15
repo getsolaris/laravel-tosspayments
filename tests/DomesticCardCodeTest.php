@@ -13,7 +13,6 @@ class DomesticCardCodeTest extends TestCase
     /**
      * 한글로 입력된 경우 코드로 변환
      *
-     * @return void
      *
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
@@ -27,7 +26,6 @@ class DomesticCardCodeTest extends TestCase
     /**
      * 영문으로 입력된 경우 코드로 변환
      *
-     * @return void
      *
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
@@ -41,7 +39,6 @@ class DomesticCardCodeTest extends TestCase
     /**
      * 코드로 입력된 경우 올바른 코드인지 확인 후 반환
      *
-     * @return void
      *
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
@@ -55,7 +52,6 @@ class DomesticCardCodeTest extends TestCase
     /**
      * 올바르지 않은 코드가 입력된 경우 예외처리 발생
      *
-     * @return void
      *
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException

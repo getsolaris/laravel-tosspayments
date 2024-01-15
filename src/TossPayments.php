@@ -2,8 +2,6 @@
 
 namespace Getsolaris\LaravelTossPayments;
 
-use Getsolaris\LaravelTossPayments\Attributes\Payment;
-use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -35,7 +33,6 @@ class TossPayments
     }
 
     /**
-     * @param $attribute
      * @return $this
      */
     public function setAttribute($attribute): static
@@ -45,18 +42,12 @@ class TossPayments
         return $this;
     }
 
-    /**
-     * @param $attribute
-     * @return static
-     */
     public static function for($attribute): static
     {
         return new static(new $attribute);
     }
 
     /**
-     * @param $name
-     * @param $arguments
      * @return TossPayments
      */
     public function __call($name, $arguments)
@@ -110,18 +101,12 @@ class TossPayments
         return $this;
     }
 
-    /**
-     * @param  string  $value
-     * @param  string  $prefix
-     * @return string
-     */
     public function start(string $value, string $prefix = '/'): string
     {
         return Str::start($value, $prefix);
     }
 
     /**
-     * @param  string  $code
      * @return $this
      */
     protected function testCode(string $code): static

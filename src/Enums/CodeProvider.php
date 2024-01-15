@@ -8,9 +8,6 @@ use LogicException;
 class CodeProvider
 {
     /**
-     * @param  int|string  $code
-     * @return string|int
-     *
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
@@ -18,7 +15,7 @@ class CodeProvider
     {
         $class = static::class;
         if ($class === self::class) {
-            throw new LogicException(static::class .' 클래스를 직접 호출할 수 없습니다.');
+            throw new LogicException(static::class.' 클래스를 직접 호출할 수 없습니다.');
         }
 
         if (defined($class.'::'.$code)) {

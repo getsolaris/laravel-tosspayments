@@ -9,24 +9,12 @@ use Illuminate\Http\Client\Response;
 
 class Settlement extends TossPayments implements AttributeInterface
 {
-    /**
-     * @var string
-     */
     protected string $uri;
 
-    /**
-     * @var string
-     */
     protected string $startDate;
 
-    /**
-     * @var string
-     */
     protected string $endDate;
 
-    /**
-     * @var string
-     */
     protected string $paymentKey;
 
     public function __construct()
@@ -45,11 +33,6 @@ class Settlement extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $endpoint
-     * @param  bool  $withUri
-     * @return string
-     */
     public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
         if ($withUri) {
@@ -60,7 +43,6 @@ class Settlement extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $startDate
      * @return $this
      */
     public function startDate(string $startDate): static
@@ -71,7 +53,6 @@ class Settlement extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $endDate
      * @return $this
      */
     public function endDate(string $endDate): static
@@ -81,12 +62,6 @@ class Settlement extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $dataType
-     * @param  int|null  $page
-     * @param  int|null  $size
-     * @return PromiseInterface|Response
-     */
     public function get(
         ?string $dataType = null,
         ?int $page = null,
@@ -112,7 +87,6 @@ class Settlement extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $paymentKey
      * @return $this
      */
     public function paymentKey(string $paymentKey): static
@@ -122,9 +96,6 @@ class Settlement extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @return PromiseInterface|Response
-     */
     public function request(): PromiseInterface|Response
     {
         return $this->client->get($this->createEndpoint('/'), [

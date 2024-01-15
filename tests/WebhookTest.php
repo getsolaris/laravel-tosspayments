@@ -17,9 +17,6 @@ class WebhookTest extends TestCase
         $this->assertIsArray($payload['data']);
     }
 
-    /**
-     * @return array
-     */
     private function getData(): array
     {
         $payload = '{

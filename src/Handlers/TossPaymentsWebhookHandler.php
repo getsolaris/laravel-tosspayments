@@ -16,7 +16,7 @@ class TossPaymentsWebhookHandler
     {
         $payload = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
-        if (!$payload) {
+        if (! $payload) {
             throw new WebhookPayloadException();
         }
 

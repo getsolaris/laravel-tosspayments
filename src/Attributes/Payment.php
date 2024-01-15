@@ -52,11 +52,6 @@ class Payment extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $endpoint
-     * @param  bool  $withUri
-     * @return string
-     */
     public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
         if ($withUri) {
@@ -67,7 +62,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $paymentKey
      * @return $this
      */
     public function paymentKey(string $paymentKey): static
@@ -78,7 +72,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $orderId
      * @return $this
      */
     public function orderId(string $orderId): static
@@ -89,7 +82,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  int  $amount
      * @return $this
      */
     public function amount(int $amount): static
@@ -99,9 +91,6 @@ class Payment extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @return PromiseInterface|Response
-     */
     public function confirm(): PromiseInterface|Response
     {
         return $this->client->post($this->createEndpoint('/confirm'), [
@@ -111,16 +100,12 @@ class Payment extends TossPayments implements AttributeInterface
         ]);
     }
 
-    /**
-     * @return PromiseInterface|Response
-     */
     public function get(): PromiseInterface|Response
     {
         return $this->client->get($this->createEndpoint('/'.($this->paymentKey ?? 'orders/'.$this->orderId)));
     }
 
     /**
-     * @param  string  $cancelReason
      * @return $this
      */
     public function cancelReason(string $cancelReason): static
@@ -130,13 +115,6 @@ class Payment extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  int|null  $cancelAmount
-     * @param  RefundReceiveAccount|null  $refundReceiveAccount
-     * @param  int|null  $taxFreeAmount
-     * @param  int|null  $refundableAmount
-     * @return PromiseInterface|Response
-     */
     public function cancel(
         ?int $cancelAmount = null,
         ?RefundReceiveAccount $refundReceiveAccount = null,
@@ -166,7 +144,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $orderName
      * @return $this
      */
     public function orderName(string $orderName): static
@@ -177,7 +154,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $customerName
      * @return $this
      */
     public function customerName(string $customerName): static
@@ -188,7 +164,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $bank
      * @return $this
      */
     public function bank(string $bank): static
@@ -198,19 +173,6 @@ class Payment extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $accountType
-     * @param  string|null  $accountKey
-     * @param  int|null  $validHours
-     * @param  string|null  $dueDate
-     * @param  string|null  $customerEmail
-     * @param  string|null  $customerMobilePhone
-     * @param  int|null  $taxFreeAmount
-     * @param  bool|null  $useEscrow
-     * @param  CashReceipt|null  $cashReceipt
-     * @param  array|null  $escrowProducts
-     * @return PromiseInterface|Response
-     */
     public function virtualAccounts(
         ?string $accountType = null,
         ?string $accountKey = null,
@@ -274,7 +236,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $cardNumber
      * @return $this
      */
     public function cardNumber(string $cardNumber): static
@@ -285,7 +246,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $cardExpirationYear
      * @return $this
      */
     public function cardExpirationYear(string $cardExpirationYear): static
@@ -296,7 +256,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $cardExpirationMonth
      * @return $this
      */
     public function cardExpirationMonth(string $cardExpirationMonth): static
@@ -307,7 +266,6 @@ class Payment extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $customerIdentityNumber
      * @return $this
      */
     public function customerIdentityNumber(string $customerIdentityNumber)
@@ -317,16 +275,6 @@ class Payment extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $cardPassword
-     * @param  int|null  $cardInstallmentPlan
-     * @param  bool|null  $useFreeInstallmentPlan
-     * @param  int|null  $taxFreeAmount
-     * @param  string|null  $customerEmail
-     * @param  string|null  $customerName
-     * @param  Vbv|null  $vbv
-     * @return PromiseInterface|Response
-     */
     public function keyIn(
         ?string $cardPassword = null,
         ?int $cardInstallmentPlan = null,

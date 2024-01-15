@@ -10,19 +10,10 @@ use Illuminate\Http\Client\Response;
 
 class Transaction extends TossPayments implements AttributeInterface
 {
-    /**
-     * @var string
-     */
     protected string $uri;
 
-    /**
-     * @var string
-     */
     protected string $startDate;
 
-    /**
-     * @var string
-     */
     protected string $endDate;
 
     public function __construct()
@@ -41,11 +32,6 @@ class Transaction extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $endpoint
-     * @param  bool  $withUri
-     * @return string
-     */
     public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
         if ($withUri) {
@@ -56,7 +42,6 @@ class Transaction extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $startDate
      * @return $this
      */
     public function startDate(string $startDate): static
@@ -67,7 +52,6 @@ class Transaction extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $endDate
      * @return $this
      */
     public function endDate(string $endDate): static
@@ -78,10 +62,6 @@ class Transaction extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string|null  $startingAfter
-     * @param  int|null  $limit
-     * @return PromiseInterface|Response
-     *
      * @throws LargeLimitException
      */
     public function get(?string $startingAfter = null, ?int $limit = null): PromiseInterface|Response

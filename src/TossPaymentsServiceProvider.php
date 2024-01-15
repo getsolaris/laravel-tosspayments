@@ -6,14 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class TossPaymentsServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string
-     */
     private string $name = 'tosspayments';
 
-    /**
-     * @return void
-     */
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__."/../config/{$this->name}.php", $this->name);
@@ -23,9 +17,6 @@ class TossPaymentsServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
         $this->publishes([
