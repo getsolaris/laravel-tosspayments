@@ -9,9 +9,6 @@ use Illuminate\Http\Client\Response;
 
 class Promotion extends TossPayments implements AttributeInterface
 {
-    /**
-     * @var string
-     */
     protected string $uri;
 
     public function __construct()
@@ -20,9 +17,6 @@ class Promotion extends TossPayments implements AttributeInterface
         $this->initializeUri();
     }
 
-    /**
-     * @return $this
-     */
     public function initializeUri(): static
     {
         $this->uri = '/promotions';
@@ -30,11 +24,6 @@ class Promotion extends TossPayments implements AttributeInterface
         return $this;
     }
 
-    /**
-     * @param  string|null  $endpoint
-     * @param  bool  $withUri
-     * @return string
-     */
     public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
         if ($withUri) {
@@ -44,9 +33,6 @@ class Promotion extends TossPayments implements AttributeInterface
         return $this->url.$this->start($endpoint);
     }
 
-    /**
-     * @return PromiseInterface|Response
-     */
     public function get(): PromiseInterface|Response
     {
         return $this->client->get($this->createEndpoint('/card'));

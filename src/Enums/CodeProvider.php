@@ -16,9 +16,9 @@ class CodeProvider
      */
     public static function toCode(int|string $code): string|int
     {
-        $class = get_called_class();
+        $class = static::class;
         if ($class === self::class) {
-            throw new LogicException(get_called_class().' 클래스를 직접 호출할 수 없습니다.');
+            throw new LogicException(static::class .' 클래스를 직접 호출할 수 없습니다.');
         }
 
         if (defined($class.'::'.$code)) {
@@ -29,7 +29,9 @@ class CodeProvider
         foreach ($constants as $constant) {
             if ($constant['code'] === $code) {
                 return $constant['code'];
-            } elseif ($constant['kr'] === $code) {
+            }
+
+            if ($constant['kr'] === $code) {
                 return $constant['code'];
             }
         }

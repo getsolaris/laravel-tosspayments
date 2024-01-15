@@ -12,64 +12,28 @@ use Illuminate\Http\Client\Response;
 
 class Payment extends TossPayments implements AttributeInterface
 {
-    /**
-     * @var string
-     */
     protected string $uri;
 
-    /**
-     * @var string
-     */
     protected string $paymentKey;
 
-    /**
-     * @var string
-     */
     protected string $orderId;
 
-    /**
-     * @var string
-     */
     protected string $cancelReason;
 
-    /**
-     * @var string
-     */
     protected string $orderName;
 
-    /**
-     * @var string
-     */
     protected string $customerName;
 
-    /**
-     * @var string
-     */
     protected string $bank;
 
-    /**
-     * @var string
-     */
     protected string $cardNumber;
 
-    /**
-     * @var string
-     */
     protected string $cardExpirationYear;
 
-    /**
-     * @var string
-     */
     protected string $cardExpirationMonth;
 
-    /**
-     * @var string
-     */
     protected string $customerIdentityNumber;
 
-    /**
-     * @var int
-     */
     protected int $amount;
 
     public function __construct()

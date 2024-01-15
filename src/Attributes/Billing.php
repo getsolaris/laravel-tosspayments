@@ -10,59 +10,16 @@ use Illuminate\Http\Client\Response;
 
 class Billing extends TossPayments implements AttributeInterface
 {
-    /**
-     * @var string
-     */
     protected string $uri;
-
-    /**
-     * @var string
-     */
     protected string $customerKey;
-
-    /**
-     * @var string
-     */
     protected string $cardNumber;
-
-    /**
-     * @var string
-     */
     protected string $cardExpirationYear;
-
-    /**
-     * @var string
-     */
     protected string $cardExpirationMonth;
-
-    /**
-     * @var string
-     */
     protected string $customerIdentityNumber;
-
-    /**
-     * @var string
-     */
     protected string $authKey;
-
-    /**
-     * @var string
-     */
     protected string $billingKey;
-
-    /**
-     * @var int
-     */
     protected int $amount;
-
-    /**
-     * @var string
-     */
     protected string $orderName;
-
-    /**
-     * @var string
-     */
     protected string $orderId;
 
     public function __construct()
@@ -82,21 +39,21 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string|null  $endpoint
-     * @param  bool  $withUri
+     * @param string|null $endpoint
+     * @param bool $withUri
      * @return string
      */
     public function createEndpoint(?string $endpoint, bool $withUri = true): string
     {
         if ($withUri) {
-            return $this->url.$this->uri.$this->start($endpoint);
+            return $this->url . $this->uri . $this->start($endpoint);
         }
 
-        return $this->url.$this->start($endpoint);
+        return $this->url . $this->start($endpoint);
     }
 
     /**
-     * @param  string  $customerKey
+     * @param string $customerKey
      * @return $this
      */
     public function customerKey(string $customerKey): static
@@ -107,7 +64,7 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $cardNumber
+     * @param string $cardNumber
      * @return $this
      */
     public function cardNumber(string $cardNumber): static
@@ -118,7 +75,7 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $cardExpirationYear
+     * @param string $cardExpirationYear
      * @return $this
      */
     public function cardExpirationYear(string $cardExpirationYear): static
@@ -129,7 +86,7 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $cardExpirationMonth
+     * @param string $cardExpirationMonth
      * @return $this
      */
     public function cardExpirationMonth(string $cardExpirationMonth): static
@@ -140,7 +97,7 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $customerIdentityNumber
+     * @param string $customerIdentityNumber
      * @return $this
      */
     public function customerIdentityNumber(string $customerIdentityNumber)
@@ -151,18 +108,19 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string|null  $cardPassword
-     * @param  string|null  $customerName
-     * @param  string|null  $customerEmail
-     * @param  Vbv|null  $vbv
+     * @param string|null $cardPassword
+     * @param string|null $customerName
+     * @param string|null $customerEmail
+     * @param Vbv|null $vbv
      * @return PromiseInterface|Response
      */
     public function authorizationsCard(
         ?string $cardPassword = null,
         ?string $customerName = null,
         ?string $customerEmail = null,
-        ?Vbv $vbv = null
-    ): PromiseInterface|Response {
+        ?Vbv    $vbv = null
+    ): PromiseInterface|Response
+    {
         $parameters = [];
         if ($cardPassword) {
             $parameters['cardPassword'] = $cardPassword;
@@ -177,16 +135,16 @@ class Billing extends TossPayments implements AttributeInterface
         }
 
         if ($vbv) {
-            $parameters['vbv'] = (array) $vbv;
+            $parameters['vbv'] = (array)$vbv;
         }
 
         return $this->client->post($this->createEndpoint('/authorizations/card'), [
-            'customerKey' => $this->customerKey,
-            'cardNumber' => $this->cardNumber,
-            'cardExpirationYear' => $this->cardExpirationYear,
-            'cardExpirationMonth' => $this->cardExpirationMonth,
-            'customerIdentityNumber' => $this->customerIdentityNumber,
-        ] + $parameters);
+                'customerKey' => $this->customerKey,
+                'cardNumber' => $this->cardNumber,
+                'cardExpirationYear' => $this->cardExpirationYear,
+                'cardExpirationMonth' => $this->cardExpirationMonth,
+                'customerIdentityNumber' => $this->customerIdentityNumber,
+            ] + $parameters);
     }
 
     /**
@@ -201,7 +159,7 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string  $billingKey
+     * @param string $billingKey
      * @return $this
      */
     public function billingKey(string $billingKey): static
@@ -233,20 +191,21 @@ class Billing extends TossPayments implements AttributeInterface
     }
 
     /**
-     * @param  string|null  $customerEmail
-     * @param  string|null  $customerName
-     * @param  string|null  $customerMobilePhone
-     * @param  int|null  $taxFreeAmount
-     * @param  int|null  $cardInstallmentPlan
+     * @param string|null $customerEmail
+     * @param string|null $customerName
+     * @param string|null $customerMobilePhone
+     * @param int|null $taxFreeAmount
+     * @param int|null $cardInstallmentPlan
      * @return PromiseInterface|Response
      */
     public function request(
         ?string $customerEmail = null,
         ?string $customerName = null,
         ?string $customerMobilePhone = null,
-        ?int $taxFreeAmount = null,
-        ?int $cardInstallmentPlan = null
-    ): PromiseInterface|Response {
+        ?int    $taxFreeAmount = null,
+        ?int    $cardInstallmentPlan = null
+    ): PromiseInterface|Response
+    {
         $parameters = [];
         if ($customerEmail) {
             $parameters['customerEmail'] = $customerEmail;
@@ -268,11 +227,11 @@ class Billing extends TossPayments implements AttributeInterface
             $parameters['cardInstallmentPlan'] = $cardInstallmentPlan;
         }
 
-        return $this->client->post($this->createEndpoint('/'.$this->billingKey), [
-            'amount' => $this->amount,
-            'customerKey' => $this->customerKey,
-            'orderId' => $this->orderId,
-            'orderName' => $this->orderName,
-        ] + $parameters);
+        return $this->client->post($this->createEndpoint('/' . $this->billingKey), [
+                'amount' => $this->amount,
+                'customerKey' => $this->customerKey,
+                'orderId' => $this->orderId,
+                'orderName' => $this->orderName,
+            ] + $parameters);
     }
 }
