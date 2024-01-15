@@ -1,5 +1,5 @@
 {
-  "name": "corean/laravel-tosspayments",
+  "name": "getsolaris/laravel-tosspayments",
   "description": "A Laravel package to Toss Payments",
   "keywords": [
     "getsolaris",
@@ -51,5 +51,5 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": false
+  "prefer-stable": true
 }
