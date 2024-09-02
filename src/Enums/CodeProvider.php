@@ -33,6 +33,6 @@ class CodeProvider
             }
         }
 
-        throw new InvalidInputTargetCodeException();
+        throw new InvalidInputTargetCodeException;
     }
 }

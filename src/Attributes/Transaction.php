@@ -73,7 +73,7 @@ class Transaction extends TossPayments implements AttributeInterface
 
         if ($limit) {
             if ($limit > 10000) {
-                throw new LargeLimitException();
+                throw new LargeLimitException;
             }
 
             $parameters['limit'] = $limit;
