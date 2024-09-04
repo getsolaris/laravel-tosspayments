@@ -2,6 +2,10 @@
 
 All notable changes to laravel-tosspayments will be documented in this file.
 
+## v.1.3.2 - 2024-09-04
+
+Laravel 11 지원
+
 ## v1.3.1 - 2024-01-15
 
 ### Laravel Toss Payments v1.3.1
@@ -29,6 +33,7 @@ All notable changes to laravel-tosspayments will be documented in this file.
 ],
 
 
+
 ```
 `handler` 설정을 변경하여 웹훅을 처리할 컨트롤러와 메소드를 지정할 수 있습니다.
 
@@ -36,6 +41,7 @@ All notable changes to laravel-tosspayments will be documented in this file.
 
 ```bash
 php artisan vendor:publish --provider="Getsolaris\LaravelTossPayments\TossPaymentsServiceProvider" --tag="webhook"
+
 
 
 ```
@@ -128,10 +134,12 @@ class BankCodeTest extends TestCase
 
 
 
+
 ```
 기관 코드 변환을 지원하는 코드는 아래와 같습니다.
 
 - 카드사 코드
+  
 - - 국내
   
 - 
@@ -140,6 +148,7 @@ class BankCodeTest extends TestCase
 - 
 - 
 - 은행 코드
+  
 
 **Full Changelog**: https://github.com/getsolaris/laravel-tosspayments/compare/v1.1...v1.2
 
@@ -170,6 +179,7 @@ return $billing->json();
 
 
 
+
 ```
 ##### [authKey로 카드 자동 결제 빌링키 발급 요청](https://docs.tosspayments.com/reference#authkey%EB%A1%9C-%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EB%B9%8C%EB%A7%81%ED%82%A4-%EB%B0%9C%EA%B8%89-%EC%9A%94%EC%B2%AD)
 
@@ -189,6 +199,7 @@ return $billing->json();
 
 
 
+
 ```
 ##### [카드 자동 결제 승인 요청](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C-%EC%9E%90%EB%8F%99-%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8-%EC%9A%94%EC%B2%AD)
 
@@ -204,6 +215,7 @@ $billing = TossPayments::for(Billing::class)
     ->authorizationsIssue();
 
 return $billing->json();
+
 
 
 
@@ -229,6 +241,7 @@ return $settlements->json();
 
 
 
+
 ```
 ##### [수동 정산 요청](https://docs.tosspayments.com/reference#%EC%88%98%EB%8F%99-%EC%A0%95%EC%82%B0-%EC%9A%94%EC%B2%AD)
 
@@ -243,6 +256,7 @@ $settlement = TossPayments::for(Settlement::class)
     ->request();
 
 return $settlement->json();
+
 
 
 
@@ -271,6 +285,7 @@ return $cashReceipt->json();
 
 
 
+
 ```
 ##### [현금영수증 발급 취소](https://docs.tosspayments.com/reference#%ED%98%84%EA%B8%88%EC%98%81%EC%88%98%EC%A6%9D-%EB%B0%9C%EA%B8%89-%EC%B7%A8%EC%86%8C)
 
@@ -285,6 +300,7 @@ $cashReceipt = TossPayments::for(CashReceipt::class)
     ->cancel();
 
 return $cashReceipt->json();
+
 
 
 
@@ -307,6 +323,7 @@ return $cashReceipts->json();
 
 
 
+
 ```
 #### [카드사 혜택 조회 (CardPromotion)](https://docs.tosspayments.com/reference#%EC%B9%B4%EB%93%9C%EC%82%AC-%ED%98%9C%ED%83%9D-%EC%A1%B0%ED%9A%8C)
 
@@ -322,6 +339,7 @@ $promotions = TossPayments::for(Promotion::class)
     ->get();
 
 return $promotions->json();
+
 
 
 
@@ -355,6 +373,7 @@ return $keyIn->json();
 
 
 
+
 ```
 - 가상계좌 발급 요청
 
@@ -376,6 +395,7 @@ return $virtualAccounts->json();
 
 
 
+
 ```
 **Full Changelog**: https://github.com/getsolaris/laravel-tosspayments/compare/v1.0.1...v1.0.2
 
@@ -384,6 +404,7 @@ return $virtualAccounts->json();
 ### Laravel Toss Payments v1.0.1
 
 - 결제 조회
+  
 - - `paymentId`로 결제 조회
   
 - 
@@ -398,5 +419,6 @@ return $virtualAccounts->json();
 - 
 - 
 - 결제 취소
+  
 
 **Full Changelog**: https://github.com/getsolaris/laravel-tosspayments/compare/v1.0...v1.0.1
