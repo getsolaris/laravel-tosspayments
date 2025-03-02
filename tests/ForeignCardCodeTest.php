@@ -17,7 +17,7 @@ class ForeignCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testConvertKrToCode(): void
+    public function test_convert_kr_to_code(): void
     {
         $code = ForeignCardCode::toCode('비자');
         $this->assertSame(self::TEST_VISA_CODE, $code);
@@ -30,7 +30,7 @@ class ForeignCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testConvertEnToCode(): void
+    public function test_convert_en_to_code(): void
     {
         $code = ForeignCardCode::toCode('VISA');
         $this->assertSame(self::TEST_VISA_CODE, $code);
@@ -43,7 +43,7 @@ class ForeignCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testAlwaysCode(): void
+    public function test_always_code(): void
     {
         $code = ForeignCardCode::toCode(self::TEST_VISA_CODE);
         $this->assertSame(self::TEST_VISA_CODE, $code);
@@ -56,7 +56,7 @@ class ForeignCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testInvalidInputTargetCodeException(): void
+    public function test_invalid_input_target_code_exception(): void
     {
         $this->expectException(InvalidInputTargetCodeException::class);
         ForeignCardCode::toCode('invalid');

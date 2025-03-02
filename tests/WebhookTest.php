@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class WebhookTest extends TestCase
 {
-    public function testWebhook(): void
+    public function test_webhook(): void
     {
         $payload = $this->getData();
 

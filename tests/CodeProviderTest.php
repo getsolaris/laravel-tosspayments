@@ -19,7 +19,7 @@ class CodeProviderTest extends TestCase
      * @throws \ReflectionException
      * @throws \LogicException|InvalidInputTargetCodeException
      */
-    public function testCodeProvider(): void
+    public function test_code_provider(): void
     {
         $this->expectException(LogicException::class);
         CodeProvider::toCode(self::TEST_TOSSBANK_CODE);

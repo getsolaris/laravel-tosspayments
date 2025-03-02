@@ -17,7 +17,7 @@ class DomesticCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testConvertKrToCode(): void
+    public function test_convert_kr_to_code(): void
     {
         $code = DomesticCardCode::toCode('토스뱅크');
         $this->assertSame(self::TEST_TOSSBANK_CODE, $code);
@@ -30,7 +30,7 @@ class DomesticCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testConvertEnToCode(): void
+    public function test_convert_en_to_code(): void
     {
         $code = DomesticCardCode::toCode('TOSSBANK');
         $this->assertSame(self::TEST_TOSSBANK_CODE, $code);
@@ -43,7 +43,7 @@ class DomesticCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testAlwaysCode(): void
+    public function test_always_code(): void
     {
         $code = DomesticCardCode::toCode(self::TEST_TOSSBANK_CODE);
         $this->assertSame(self::TEST_TOSSBANK_CODE, $code);
@@ -56,7 +56,7 @@ class DomesticCardCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testInvalidInputTargetCodeException(): void
+    public function test_invalid_input_target_code_exception(): void
     {
         $this->expectException(InvalidInputTargetCodeException::class);
         DomesticCardCode::toCode('invalid');

@@ -17,7 +17,7 @@ class BankCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testConvertKrToCode(): void
+    public function test_convert_kr_to_code(): void
     {
         $code = BankCode::toCode('토스');
         $this->assertSame(self::TEST_TOSSBANK_CODE, $code);
@@ -30,7 +30,7 @@ class BankCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testConvertEnToCode(): void
+    public function test_convert_en_to_code(): void
     {
         $code = BankCode::toCode('TOSSBANK');
         $this->assertSame(self::TEST_TOSSBANK_CODE, $code);
@@ -43,7 +43,7 @@ class BankCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testAlwaysCode(): void
+    public function test_always_code(): void
     {
         $code = BankCode::toCode(self::TEST_TOSSBANK_CODE);
         $this->assertSame(self::TEST_TOSSBANK_CODE, $code);
@@ -56,7 +56,7 @@ class BankCodeTest extends TestCase
      * @throws InvalidInputTargetCodeException
      * @throws \ReflectionException
      */
-    public function testInvalidInputTargetCodeException(): void
+    public function test_invalid_input_target_code_exception(): void
     {
         $this->expectException(InvalidInputTargetCodeException::class);
         BankCode::toCode('invalid');
